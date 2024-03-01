@@ -1,8 +1,9 @@
 # clockwork
 
-HLD : ![Uploading 20240301_131140.jpg…]()
+HLD : 
 
 
+![20240301_131140](https://github.com/ramantayal12/clockwork/assets/42838224/38f2dce8-f0fe-49dc-ad9a-1e771c1df835)
 
 
 - Goal : Provides callbacks to expected service at specified time range
