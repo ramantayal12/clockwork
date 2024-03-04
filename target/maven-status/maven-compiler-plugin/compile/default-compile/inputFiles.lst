@@ -3,6 +3,7 @@
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/dao/JobsDaoLayer.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/dao/impl/JobsDaoLayerImpl.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/utils/service/IdGenerator.java
+/Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/service/impl/BatchFetcherImpl.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/utils/ClockworkUtility.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/service/impl/ExecutorImpl.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/repository/JobsRepository.java
@@ -11,7 +12,10 @@
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/config/kafka/KafkaConsumerConfig.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/config/SerialisationConfig.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/entity/JobEntity.java
+/Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/kafka/KafkaJobsConsumerService.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/dto/JobDto.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/controller/JobController.java
+/Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/kafka/KafkaJobsProducerService.java
+/Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/service/BatchFetcher.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/service/Executor.java
 /Users/ramant/Desktop/clockwork/src/main/java/org/clockwork/pulse/config/RestClientConfig.java

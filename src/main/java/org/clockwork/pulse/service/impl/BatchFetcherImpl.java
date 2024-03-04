@@ -18,7 +18,6 @@ public class BatchFetcherImpl implements BatchFetcher {
 
   private final JobsDaoLayer jobsDaoLayer;
   private final KafkaJobsProducerService producerService;
-  private final ObjectMapper objectMapper;
 
   @Value(value = "${clockwork.repetition-time-unit}")
   private Long repetitionTime;
@@ -27,11 +26,9 @@ public class BatchFetcherImpl implements BatchFetcher {
   private String KAFKA_PRODUCER_TOPIC;
 
   @Autowired
-  public BatchFetcherImpl(JobsDaoLayer jobsDaoLayer, KafkaJobsProducerService producerService,
-      ObjectMapper objectMapper) {
+  public BatchFetcherImpl(JobsDaoLayer jobsDaoLayer, KafkaJobsProducerService producerService) {
     this.jobsDaoLayer = jobsDaoLayer;
     this.producerService = producerService;
-    this.objectMapper = objectMapper;
   }
 
   /**
