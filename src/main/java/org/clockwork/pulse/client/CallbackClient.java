@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
-public class CallbackExecutor {
+public class CallbackClient {
 
   private final RestClient restClient;
 
   @Autowired
-  public CallbackExecutor(RestClient restClient) {
+  public CallbackClient(RestClient restClient) {
     this.restClient = restClient;
   }
 

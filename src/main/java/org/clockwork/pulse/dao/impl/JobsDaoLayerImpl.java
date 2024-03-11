@@ -32,11 +32,6 @@ public class JobsDaoLayerImpl implements JobsDaoLayer {
   }
 
   @Override
-  public List<JobEntity> getBatchOfJobsBetweenTimestamps(Long startTime, Long endTime) {
-    return repository.findByExecutionTimeBetween(startTime, endTime);
-  }
-
-  @Override
   public Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime, LocalDateTime endTime) {
     return repository.streamByExecutionTimeBetween(startTime, endTime);
   }

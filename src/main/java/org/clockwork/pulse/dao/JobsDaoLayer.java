@@ -11,8 +11,6 @@ public interface JobsDaoLayer {
 
   JobEntity getJobEntity(String jobId);
 
-  List<JobEntity> getBatchOfJobsBetweenTimestamps(Long startTime, Long endTime);
-
   Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
       LocalDateTime endTime);
 
