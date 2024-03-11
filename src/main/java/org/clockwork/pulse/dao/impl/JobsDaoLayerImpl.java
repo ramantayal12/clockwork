@@ -20,12 +20,12 @@ public class JobsDaoLayerImpl implements JobsDaoLayer {
   @Override
   public String saveEntity(JobEntity jobEntity) {
     var resultEntity = repository.save(jobEntity);
-    return resultEntity.getId();
+    return resultEntity.getJobId();
   }
 
   @Override
   public JobEntity getJobEntity(String jobId) {
-    var resultEntity = repository.findById(jobId);
+    var resultEntity = repository.findByJobId(jobId);
     return resultEntity.orElse(null);
   }
 

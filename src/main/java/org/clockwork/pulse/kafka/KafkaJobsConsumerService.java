@@ -1,8 +1,9 @@
 package org.clockwork.pulse.kafka;
 
-import org.clockwork.pulse.service.Executor;
+import org.clockwork.pulse.service.JobsExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,17 +17,18 @@ public class KafkaJobsConsumerService {
   private final String KAFKA_CONSUMER_TOPIC = "jobs-topic-id-1";
   private final String KAFKA_CONSUMER_GROUP_ID = "jobs-consumer-group-1";
 
-  private final Executor executor;
+  private final JobsExecutor jobsExecutor;
 
   @Autowired
-  public KafkaJobsConsumerService(Executor executor) {
-    this.executor = executor;
+  public KafkaJobsConsumerService(JobsExecutor jobsExecutor) {
+    this.jobsExecutor = jobsExecutor;
   }
 
   @KafkaListener(topics = KAFKA_CONSUMER_TOPIC, groupId = KAFKA_CONSUMER_GROUP_ID)
-  public void listenJob(String jobId) {
+  public void listenJob(String jobId, Acknowledgment acknowledgment) {
 
-    executor.executeJob(jobId);
+    jobsExecutor.executeJob(jobId);
+    acknowledgment.acknowledge();
 
   }
 }

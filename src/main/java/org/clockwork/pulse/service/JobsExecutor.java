@@ -1,6 +1,6 @@
 package org.clockwork.pulse.service;
 
-public interface Executor {
+public interface JobsExecutor {
 
   String executeJob(String jobId);
 

@@ -1,15 +1,13 @@
 package org.clockwork.pulse.controller;
 
-import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromDto;
-
-import org.clockwork.pulse.dao.JobsDaoLayer;
-import org.clockwork.pulse.dto.JobDto;
-import org.clockwork.pulse.entity.JobEntity;
-import org.clockwork.pulse.utils.service.IdGenerator;
+import org.clockwork.pulse.dto.request.FetchJobDetailsDto;
+import org.clockwork.pulse.dto.request.SaveJobRequestDto;
+import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
+import org.clockwork.pulse.dto.response.SaveJobDetailsResponseDto;
+import org.clockwork.pulse.service.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,37 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/jobs")
 public class JobController {
 
-  private static final String JOB_ID_PREFIX = "J";
-  private final IdGenerator idGenerator;
-  private final JobsDaoLayer jobsDaoLayer;
+  private final Worker worker;
 
   @Autowired
-  public JobController(IdGenerator idGenerator, JobsDaoLayer jobsDaoLayer) {
-    this.idGenerator = idGenerator;
-    this.jobsDaoLayer = jobsDaoLayer;
+  public JobController(Worker worker) {
+    this.worker = worker;
   }
+
 
   @PostMapping(path = "/save")
-  public ResponseEntity<String> saveJobRequest(@RequestBody JobDto jobDto) {
+  public ResponseEntity<SaveJobDetailsResponseDto> saveJobRequest(@RequestBody SaveJobRequestDto saveJobRequestDto) {
 
-    var generatedJobId = getGeneratedId();
-    var jobEntity = getJobEntityFromDto(jobDto, generatedJobId);
-
-    var resultingId = jobsDaoLayer.saveEntity(jobEntity);
-
-    return ResponseEntity.ok(resultingId);
+    var response = worker.onboardJob(saveJobRequestDto);
+    return ResponseEntity.ok(response);
 
   }
 
-  @GetMapping(path = "/get/{jobId}")
-  public ResponseEntity<JobEntity> getJobDetails(@PathVariable String jobId) {
+  @GetMapping(path = "/get")
+  public ResponseEntity<FetchJobDetailsResponseDto> getJobDetails(@RequestBody FetchJobDetailsDto jobDetailsDto) {
 
-    var resultingId = jobsDaoLayer.getJobEntity(jobId);
-    return ResponseEntity.ok(resultingId);
+    var response = worker.fetchJobDetails(jobDetailsDto.getJobId());
+    return ResponseEntity.ok(response);
 
   }
 
-  private String getGeneratedId() {
-    return idGenerator.generateId(JOB_ID_PREFIX);
-  }
+
 }

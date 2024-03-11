@@ -45,8 +45,8 @@ public class BatchFetcherImpl implements BatchFetcher {
     List<String> responses = new ArrayList<>();
     for (JobEntity job : jobEntities) {
 
-      producerService.sendMessage(KAFKA_PRODUCER_TOPIC, job.getId());
-      responses.add(job.getId());
+      producerService.sendMessage(KAFKA_PRODUCER_TOPIC, job.getJobId());
+      responses.add(job.getJobId());
 
     }
 

@@ -7,57 +7,52 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
-public class ExecutorClient {
+public class JobsExecutorClient {
 
-  private final RestClient client;
+  private final RestClient restClient;
 
   @Autowired
-  public ExecutorClient(RestClient client) {
-    this.client = client;
+  public JobsExecutorClient(RestClient restClient) {
+    this.restClient = restClient;
   }
 
 
   public String executePostMethod(String url, String data, String authToken) {
 
-    var response = client.post()
+    return restClient.post()
         .uri(url)
         .contentType(APPLICATION_JSON)
         .body(data)
         .retrieve()
         .body(String.class);
-
-    return response;
 
   }
 
   public String executeGetMethod(String url, String authToken) {
 
-    var response = client.get()
+    return restClient.get()
         .uri(url)
         .retrieve()
         .body(String.class);
-
-    return response;
   }
 
   public String executePostMethod(String url, String data) {
 
-    var response = client.post()
+    return restClient.post()
         .uri(url)
         .contentType(APPLICATION_JSON)
         .body(data)
         .retrieve()
         .body(String.class);
-
-    return response;
   }
 
   public String executeGetMethod(String url) {
 
-    return client.get()
+    return restClient.get()
         .uri(url)
         .retrieve()
         .body(String.class);
+
   }
 
 }
