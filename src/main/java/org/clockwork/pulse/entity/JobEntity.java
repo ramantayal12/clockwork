@@ -5,6 +5,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,16 +14,15 @@ import lombok.Setter;
 import org.clockwork.pulse.entity.base.BaseEntity;
 import org.clockwork.pulse.models.RequestType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Builder
 @Entity
+@Builder
+//@Document(collection = "jobs") for mongoDb
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
-//@Document(collection = "jobs") for mnongo db
-@Table
 @EntityListeners(AuditingEntityListener.class)
 public class JobEntity extends BaseEntity {
 
@@ -35,6 +35,6 @@ public class JobEntity extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private RequestType requestType;
 
-  private Long executionTime;
+  private LocalDateTime executionTime;
 
 }

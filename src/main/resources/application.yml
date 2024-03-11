@@ -28,4 +28,4 @@ spring:
       topic: ${KAFKA_PRODUCER_TOPIC_ID:jobs-topic-id-1}
 
 clockwork:
-  repetition-time-unit: 120000
+  repetition-time-unit-minutes: 2

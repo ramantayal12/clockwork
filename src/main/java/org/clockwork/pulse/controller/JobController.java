@@ -1,9 +1,8 @@
 package org.clockwork.pulse.controller;
 
 import org.clockwork.pulse.dto.request.FetchJobDetailsDto;
-import org.clockwork.pulse.dto.request.SaveJobRequestDto;
-import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
-import org.clockwork.pulse.dto.response.SaveJobDetailsResponseDto;
+import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
+import org.clockwork.pulse.exception.BaseClockWorkException;
 import org.clockwork.pulse.service.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/jobs")
+@RequestMapping(path = "/callbacks")
 public class JobController {
 
   private final Worker worker;
@@ -25,20 +24,49 @@ public class JobController {
   }
 
 
-  @PostMapping(path = "/save")
-  public ResponseEntity<SaveJobDetailsResponseDto> saveJobRequest(@RequestBody SaveJobRequestDto saveJobRequestDto) {
+  @PostMapping(path = "/request-post-callback")
+  public ResponseEntity onboardPostJobRequest(
+      @RequestBody PostCallbackRequestDto postCallbackRequestDto) {
 
-    var response = worker.onboardJob(saveJobRequestDto);
-    return ResponseEntity.ok(response);
+    try {
+      var response = worker.onboardJob(postCallbackRequestDto);
+      return ResponseEntity.ok(response);
+    } catch (BaseClockWorkException exception){
+      return getThrowable(exception);
+    }
 
   }
 
-  @GetMapping(path = "/get")
-  public ResponseEntity<FetchJobDetailsResponseDto> getJobDetails(@RequestBody FetchJobDetailsDto jobDetailsDto) {
+  @PostMapping(path = "/request-get-callback")
+  public ResponseEntity onboardGetJobRequest(
+      @RequestBody PostCallbackRequestDto postCallbackRequestDto) {
 
-    var response = worker.fetchJobDetails(jobDetailsDto.getJobId());
-    return ResponseEntity.ok(response);
+    try {
+      var response = worker.onboardJob(postCallbackRequestDto);
+      return ResponseEntity.ok(response);
+    }catch (BaseClockWorkException exception){
+      return getThrowable(exception);
+    }
 
+  }
+
+  @GetMapping(path = "/get-callback-details")
+  public ResponseEntity getJobDetails(
+      @RequestBody FetchJobDetailsDto jobDetailsDto) {
+
+    try {
+      var response = worker.fetchJobDetails(jobDetailsDto.getJobId());
+      return ResponseEntity.ok(response);
+    }catch (BaseClockWorkException exception){
+      return getThrowable(exception);
+    }
+
+  }
+
+  private static ResponseEntity<String> getThrowable(BaseClockWorkException exception) {
+    return ResponseEntity
+        .status(exception.getHttpStatus())
+        .body(exception.getMessage());
   }
 
 

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface BatchFetcher {
 
-  List<String> publishNextBatchOfJobs();
+  void cronMethod();
 
 }

@@ -1,6 +1,8 @@
 package org.clockwork.pulse.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 import org.clockwork.pulse.dao.JobsDaoLayer;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.repository.JobsRepository;
@@ -32,5 +34,10 @@ public class JobsDaoLayerImpl implements JobsDaoLayer {
   @Override
   public List<JobEntity> getBatchOfJobsBetweenTimestamps(Long startTime, Long endTime) {
     return repository.findByExecutionTimeBetween(startTime, endTime);
+  }
+
+  @Override
+  public Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime, LocalDateTime endTime) {
+    return repository.streamByExecutionTimeBetween(startTime, endTime);
   }
 }

@@ -1,5 +1,6 @@
 package org.clockwork.pulse.dto.response;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class FetchJobDetailsResponseDto {
   private String url;
   private String data;
   private RequestType requestType;
-  private Long callBackTimeAfterMinutes;
+  private LocalDateTime executionTime;
 
 }
