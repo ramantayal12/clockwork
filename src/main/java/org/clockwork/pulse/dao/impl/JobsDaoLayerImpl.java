@@ -41,7 +41,7 @@ public class JobsDaoLayerImpl implements JobsDaoLayer {
   @Override
   public Page<JobEntity> pageBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
       LocalDateTime endTime, Pageable pageable) {
-    return repository.pageByExecutionTimeBetween(startTime, endTime, pageable);
+    return repository.findByExecutionTimeBetween(startTime, endTime, pageable);
   }
 
 
