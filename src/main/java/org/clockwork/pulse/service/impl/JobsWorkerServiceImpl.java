@@ -11,13 +11,13 @@ import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
 import org.clockwork.pulse.dto.response.OnboardJobDetailsResponseDto;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.service.ValidationService;
-import org.clockwork.pulse.service.Worker;
+import org.clockwork.pulse.service.JobsWorkerService;
 import org.clockwork.pulse.service.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WorkerImpl implements Worker {
+public class JobsWorkerServiceImpl implements JobsWorkerService {
 
   private static final String JOB_ID_PREFIX = "J";
   private final IdGenerator idGenerator;
@@ -25,7 +25,7 @@ public class WorkerImpl implements Worker {
   private final ValidationService validationService;
 
   @Autowired
-  public WorkerImpl(IdGenerator idGenerator, JobsDaoLayer jobsDaoLayer,
+  public JobsWorkerServiceImpl(IdGenerator idGenerator, JobsDaoLayer jobsDaoLayer,
       ValidationService validationService) {
     this.idGenerator = idGenerator;
     this.jobsDaoLayer = jobsDaoLayer;

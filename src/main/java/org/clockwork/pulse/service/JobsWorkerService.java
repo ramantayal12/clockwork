@@ -6,7 +6,7 @@ import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
 import org.clockwork.pulse.dto.response.OnboardJobDetailsResponseDto;
 import org.clockwork.pulse.exception.BaseClockWorkException;
 
-public interface Worker {
+public interface JobsWorkerService {
 
   OnboardJobDetailsResponseDto onboardJob(PostCallbackRequestDto requestDto) throws BaseClockWorkException;
   OnboardJobDetailsResponseDto onboardJob(GetCallbackRequestDto requestDto) throws BaseClockWorkException;

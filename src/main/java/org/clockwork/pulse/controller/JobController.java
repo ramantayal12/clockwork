@@ -4,7 +4,7 @@ import org.clockwork.pulse.dto.request.FetchJobDetailsDto;
 import org.clockwork.pulse.dto.request.GetCallbackRequestDto;
 import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
 import org.clockwork.pulse.exception.BaseClockWorkException;
-import org.clockwork.pulse.service.Worker;
+import org.clockwork.pulse.service.JobsWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/callbacks")
 public class JobController {
 
-  private final Worker worker;
+  private final JobsWorkerService jobsWorkerService;
 
   @Autowired
-  public JobController(Worker worker) {
-    this.worker = worker;
+  public JobController(JobsWorkerService jobsWorkerService) {
+    this.jobsWorkerService = jobsWorkerService;
   }
 
 
@@ -30,7 +30,7 @@ public class JobController {
       @RequestBody PostCallbackRequestDto requestDto) {
 
     try {
-      var response = worker.onboardJob(requestDto);
+      var response = jobsWorkerService.onboardJob(requestDto);
       return ResponseEntity.ok(response);
     } catch (BaseClockWorkException exception){
       return getThrowable(exception);
@@ -43,7 +43,7 @@ public class JobController {
       @RequestBody GetCallbackRequestDto requestDto) {
 
     try {
-      var response = worker.onboardJob(requestDto);
+      var response = jobsWorkerService.onboardJob(requestDto);
       return ResponseEntity.ok(response);
     }catch (BaseClockWorkException exception){
       return getThrowable(exception);
@@ -56,7 +56,7 @@ public class JobController {
       @RequestBody FetchJobDetailsDto jobDetailsDto) {
 
     try {
-      var response = worker.fetchJobDetails(jobDetailsDto.getJobId());
+      var response = jobsWorkerService.fetchJobDetails(jobDetailsDto.getJobId());
       return ResponseEntity.ok(response);
     }catch (BaseClockWorkException exception){
       return getThrowable(exception);
