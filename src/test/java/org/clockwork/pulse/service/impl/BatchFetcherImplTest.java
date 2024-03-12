@@ -6,6 +6,7 @@ import org.clockwork.pulse.dao.JobsDaoLayer;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.kafka.KafkaJobsProducerService;
 import org.clockwork.pulse.models.RequestType;
+import org.clockwork.pulse.service.EventService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,8 @@ class BatchFetcherImplTest {
   void setUp(){
     jobsDaoLayer = Mockito.mock(JobsDaoLayer.class);
     KafkaJobsProducerService producerService = Mockito.mock(KafkaJobsProducerService.class);
-
-    batchFetcher = new BatchFetcherImpl(jobsDaoLayer, producerService);
+    EventService eventService = Mockito.mock(EventService.class);
+    batchFetcher = new BatchFetcherImpl(eventService, jobsDaoLayer, producerService);
   }
 
   @Test

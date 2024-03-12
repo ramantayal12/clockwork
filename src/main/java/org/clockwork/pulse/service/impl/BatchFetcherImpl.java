@@ -7,7 +7,9 @@ import java.util.stream.Stream;
 import org.clockwork.pulse.dao.JobsDaoLayer;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.kafka.KafkaJobsProducerService;
+import org.clockwork.pulse.models.JobStatus;
 import org.clockwork.pulse.service.BatchFetcher;
+import org.clockwork.pulse.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BatchFetcherImpl implements BatchFetcher {
 
+  private final EventService eventService;
   private final JobsDaoLayer jobsDaoLayer;
   private final KafkaJobsProducerService producerService;
 
@@ -28,7 +31,8 @@ public class BatchFetcherImpl implements BatchFetcher {
   private String KAFKA_PRODUCER_TOPIC;
 
   @Autowired
-  public BatchFetcherImpl(JobsDaoLayer jobsDaoLayer, KafkaJobsProducerService producerService) {
+  public BatchFetcherImpl(EventService eventService, JobsDaoLayer jobsDaoLayer, KafkaJobsProducerService producerService) {
+    this.eventService = eventService;
     this.jobsDaoLayer = jobsDaoLayer;
     this.producerService = producerService;
   }
@@ -77,6 +81,7 @@ public class BatchFetcherImpl implements BatchFetcher {
 
       for(JobEntity entity : entities) {
         producerService.sendMessage(KAFKA_PRODUCER_TOPIC, entity.getJobId());
+        eventService.sendEvent(entity.getJobId(), JobStatus.IN_QUEUE);
       }
 
       pageNumber += 1;

@@ -8,8 +8,12 @@ import org.clockwork.pulse.exception.BaseClockWorkException;
 
 public interface JobsWorkerService {
 
-  OnboardJobDetailsResponseDto onboardJob(PostCallbackRequestDto requestDto) throws BaseClockWorkException;
-  OnboardJobDetailsResponseDto onboardJob(GetCallbackRequestDto requestDto) throws BaseClockWorkException;
+  OnboardJobDetailsResponseDto onboardJob(PostCallbackRequestDto requestDto)
+      throws BaseClockWorkException;
+
+  OnboardJobDetailsResponseDto onboardJob(GetCallbackRequestDto requestDto)
+      throws BaseClockWorkException;
+
   FetchJobDetailsResponseDto fetchJobDetails(String jobId) throws BaseClockWorkException;
 
 }

@@ -10,6 +10,8 @@ import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
 import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
 import org.clockwork.pulse.dto.response.OnboardJobDetailsResponseDto;
 import org.clockwork.pulse.entity.JobEntity;
+import org.clockwork.pulse.models.JobStatus;
+import org.clockwork.pulse.service.EventService;
 import org.clockwork.pulse.service.ValidationService;
 import org.clockwork.pulse.service.JobsWorkerService;
 import org.clockwork.pulse.service.util.IdGenerator;
@@ -23,13 +25,15 @@ public class JobsWorkerServiceImpl implements JobsWorkerService {
   private final IdGenerator idGenerator;
   private final JobsDaoLayer jobsDaoLayer;
   private final ValidationService validationService;
+  private final EventService eventService;
 
   @Autowired
   public JobsWorkerServiceImpl(IdGenerator idGenerator, JobsDaoLayer jobsDaoLayer,
-      ValidationService validationService) {
+      ValidationService validationService, EventService eventService) {
     this.idGenerator = idGenerator;
     this.jobsDaoLayer = jobsDaoLayer;
     this.validationService = validationService;
+    this.eventService = eventService;
   }
 
   @Override
@@ -44,6 +48,8 @@ public class JobsWorkerServiceImpl implements JobsWorkerService {
     var generatedJobId = getGeneratedId();
     var jobEntity = getJobEntityFromPostDto(requestDto, generatedJobId);
     var jobId = jobsDaoLayer.saveEntity(jobEntity);
+
+    eventService.sendEvent(jobId, JobStatus.CREATED);
     return OnboardJobDetailsResponseDto.builder()
         .jobId(jobId)
         .build();
@@ -60,6 +66,8 @@ public class JobsWorkerServiceImpl implements JobsWorkerService {
     var generatedJobId = getGeneratedId();
     var jobEntity = getJobEntityFromGetDto(requestDto, generatedJobId);
     var jobId = jobsDaoLayer.saveEntity(jobEntity);
+
+    eventService.sendEvent(jobId, JobStatus.CREATED);
     return OnboardJobDetailsResponseDto.builder()
         .jobId(jobId)
         .build();
