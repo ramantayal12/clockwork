@@ -14,6 +14,6 @@ public class PostCallbackRequestDto {
 
   private String url;
   private String data;
-  private Long callBackTimeAfterMinutes;
+  private long callBackTimeAfterMinutes;
 
 }

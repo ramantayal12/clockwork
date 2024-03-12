@@ -9,10 +9,10 @@ import org.clockwork.pulse.models.RequestType;
 
 public class ClockworkUtility {
 
-  public static JobEntity getJobEntityFromPostDto(
+  public static JobEntity getJobEntityFromPostRequestDto(
       PostCallbackRequestDto requestDto, String jobId) {
 
-    Long callBackTimeAfterMinutes = requestDto.getCallBackTimeAfterMinutes();
+    long callBackTimeAfterMinutes = requestDto.getCallBackTimeAfterMinutes();
     LocalDateTime executionTime = LocalDateTime.now().plusMinutes(callBackTimeAfterMinutes);
 
     return JobEntity.builder()
@@ -27,7 +27,7 @@ public class ClockworkUtility {
   public static JobEntity getJobEntityFromGetDto(
       GetCallbackRequestDto requestDto, String jobId) {
 
-    Long callBackTimeAfterMinutes = requestDto.getCallBackTimeAfterMinutes();
+    long callBackTimeAfterMinutes = requestDto.getCallBackTimeAfterMinutes();
     LocalDateTime executionTime = LocalDateTime.now().plusMinutes(callBackTimeAfterMinutes);
 
     return JobEntity.builder()

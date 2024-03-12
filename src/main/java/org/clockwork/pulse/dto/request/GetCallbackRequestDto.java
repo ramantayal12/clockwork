@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class GetCallbackRequestDto {
 
   private String url;
-  private Long callBackTimeAfterMinutes;
+  private long callBackTimeAfterMinutes;
 
 }

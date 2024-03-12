@@ -1,5 +1,6 @@
 package org.clockwork.pulse.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -26,15 +27,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class JobEntity extends BaseEntity {
 
+  @Column(name = "job_id")
   private String jobId;
 
   private String url;
 
   private String data;
 
+  @Column(name = "request_type")
   @Enumerated(EnumType.STRING)
   private RequestType requestType;
 
+  @Column(name = "execution_time")
   private LocalDateTime executionTime;
 
 }

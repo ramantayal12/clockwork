@@ -2,7 +2,7 @@ package org.clockwork.pulse.service.impl;
 
 import static org.clockwork.pulse.utils.ClockworkUtility.getFetchJobDetailsResponseDto;
 import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromGetDto;
-import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromPostDto;
+import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromPostRequestDto;
 
 import lombok.SneakyThrows;
 import org.clockwork.pulse.dao.JobsDaoLayer;
@@ -47,7 +47,7 @@ public class JobsWorkerServiceImpl implements JobsWorkerService {
 
     // create entity
     var generatedJobId = getGeneratedId();
-    var jobEntity = getJobEntityFromPostDto(requestDto, generatedJobId);
+    var jobEntity = getJobEntityFromPostRequestDto(requestDto, generatedJobId);
     var jobId = jobsDaoLayer.saveEntity(jobEntity);
 
     eventService.sendEvent(jobId, JobStatus.CREATED);

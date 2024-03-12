@@ -8,7 +8,9 @@ import org.clockwork.pulse.exception.BaseClockWorkException;
 public interface ValidationService {
 
   void validateFetchRequest(FetchJobDetailsDto requestDto);
+
   void validateGetCallbackRequest(GetCallbackRequestDto requestDto) throws BaseClockWorkException;
+
   void validatePostCallbackRequest(PostCallbackRequestDto requestDto) throws BaseClockWorkException;
 
 }

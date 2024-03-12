@@ -62,7 +62,6 @@ public class BatchFetcherImpl implements BatchFetcher {
         endOfWindow);
 
     if (Objects.nonNull(entityStream)) {
-
       entityStream
           .forEach(job -> producerService.sendMessage(KAFKA_PRODUCER_TOPIC, job.getJobId()));
     }
@@ -77,7 +76,7 @@ public class BatchFetcherImpl implements BatchFetcher {
         startOfWindow,
         endOfWindow, pageRequest);
 
-    while( entities.hasNext() ){
+    while( Objects.nonNull(entities) && entities.hasNext() ){
 
       for(JobEntity entity : entities) {
         producerService.sendMessage(KAFKA_PRODUCER_TOPIC, entity.getJobId());

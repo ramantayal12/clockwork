@@ -13,6 +13,9 @@ public interface JobsDaoLayer {
 
   JobEntity getJobEntity(String jobId);
 
+  /**
+   * Stream return has con, that it keeps connection with dB open
+   */
   Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
       LocalDateTime endTime);
 

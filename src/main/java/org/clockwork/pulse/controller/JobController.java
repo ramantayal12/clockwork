@@ -26,7 +26,7 @@ public class JobController {
 
 
   @PostMapping(path = "/request-post-callback")
-  public ResponseEntity onboardPostJobRequest(
+  public ResponseEntity onboardPostCallbackRequest(
       @RequestBody PostCallbackRequestDto requestDto) {
 
     try {
@@ -39,13 +39,13 @@ public class JobController {
   }
 
   @PostMapping(path = "/request-get-callback")
-  public ResponseEntity onboardGetJobRequest(
+  public ResponseEntity onboardGetCallbackRequest(
       @RequestBody GetCallbackRequestDto requestDto) {
 
     try {
       var response = jobsWorkerService.onboardJob(requestDto);
       return ResponseEntity.ok(response);
-    }catch (BaseClockWorkException exception){
+    } catch (BaseClockWorkException exception){
       return getThrowable(exception);
     }
 
@@ -58,7 +58,7 @@ public class JobController {
     try {
       var response = jobsWorkerService.fetchJobDetails(jobDetailsDto);
       return ResponseEntity.ok(response);
-    }catch (BaseClockWorkException exception){
+    } catch (BaseClockWorkException exception){
       return getThrowable(exception);
     }
 
