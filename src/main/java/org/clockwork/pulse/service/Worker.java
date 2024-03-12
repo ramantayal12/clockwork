@@ -10,7 +10,6 @@ public interface Worker {
 
   OnboardJobDetailsResponseDto onboardJob(PostCallbackRequestDto requestDto) throws BaseClockWorkException;
   OnboardJobDetailsResponseDto onboardJob(GetCallbackRequestDto requestDto) throws BaseClockWorkException;
-
   FetchJobDetailsResponseDto fetchJobDetails(String jobId) throws BaseClockWorkException;
 
 }

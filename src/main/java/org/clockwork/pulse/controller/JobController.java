@@ -1,6 +1,7 @@
 package org.clockwork.pulse.controller;
 
 import org.clockwork.pulse.dto.request.FetchJobDetailsDto;
+import org.clockwork.pulse.dto.request.GetCallbackRequestDto;
 import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
 import org.clockwork.pulse.exception.BaseClockWorkException;
 import org.clockwork.pulse.service.Worker;
@@ -26,10 +27,10 @@ public class JobController {
 
   @PostMapping(path = "/request-post-callback")
   public ResponseEntity onboardPostJobRequest(
-      @RequestBody PostCallbackRequestDto postCallbackRequestDto) {
+      @RequestBody PostCallbackRequestDto requestDto) {
 
     try {
-      var response = worker.onboardJob(postCallbackRequestDto);
+      var response = worker.onboardJob(requestDto);
       return ResponseEntity.ok(response);
     } catch (BaseClockWorkException exception){
       return getThrowable(exception);
@@ -39,10 +40,10 @@ public class JobController {
 
   @PostMapping(path = "/request-get-callback")
   public ResponseEntity onboardGetJobRequest(
-      @RequestBody PostCallbackRequestDto postCallbackRequestDto) {
+      @RequestBody GetCallbackRequestDto requestDto) {
 
     try {
-      var response = worker.onboardJob(postCallbackRequestDto);
+      var response = worker.onboardJob(requestDto);
       return ResponseEntity.ok(response);
     }catch (BaseClockWorkException exception){
       return getThrowable(exception);
