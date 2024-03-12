@@ -18,4 +18,5 @@ public class EventsDao {
   public void saveEvent(EventEntity entity){
     repository.save(entity);
   }
+
 }
