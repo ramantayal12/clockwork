@@ -1,4 +1,4 @@
-package org.clockwork.pulse.utils.service;
+package org.clockwork.pulse.service.util;
 
 import java.security.SecureRandom;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,6 @@ public class IdGenerator {
 
   private static final int RANDOM_BOUND_UPPER = 9000; // Max value for the random number
   private static final int RANDOM_BOUND_LOWER = 1000; // Min value for the random number
-  private static final int RANDOM_DIGITS = 4; // Number of digits for the random number
   private SecureRandom secureRandom;
 
   // Singleton is the default scope of all beans defined in Spring

@@ -1,25 +1,40 @@
 package org.clockwork.pulse.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.clockwork.pulse.entity.base.BaseEntity;
 import org.clockwork.pulse.models.RequestType;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Data
+@Getter
+@Setter
+@Entity
 @Builder
+//@Document(collection = "jobs") for mongoDb
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "jobs")
-public class JobEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class JobEntity extends BaseEntity {
 
-  @Id
-  private String id;
+  private String jobId;
+
   private String url;
+
   private String data;
+
+  @Enumerated(EnumType.STRING)
   private RequestType requestType;
-  private Long executionTime;
+
+  private LocalDateTime executionTime;
 
 }

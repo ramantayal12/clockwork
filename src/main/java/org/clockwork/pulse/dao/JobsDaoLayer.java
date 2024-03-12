@@ -1,7 +1,11 @@
 package org.clockwork.pulse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 import org.clockwork.pulse.entity.JobEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface JobsDaoLayer {
 
@@ -9,6 +13,10 @@ public interface JobsDaoLayer {
 
   JobEntity getJobEntity(String jobId);
 
-  List<JobEntity> getBatchOfJobsBetweenTimestamps(Long startTime, Long endTime);
+  Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
+      LocalDateTime endTime);
+
+  Page<JobEntity> pageBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
+      LocalDateTime endTime, Pageable pageable);
 
 }
