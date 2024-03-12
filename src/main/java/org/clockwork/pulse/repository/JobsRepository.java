@@ -1,6 +1,7 @@
 package org.clockwork.pulse.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.clockwork.pulse.entity.JobEntity;
