@@ -20,6 +20,6 @@ public interface JobsRepository extends CrudRepository<JobEntity, Long> {
   Stream<JobEntity> streamByExecutionTimeBetween(LocalDateTime executionTimeStart,
       LocalDateTime executionTimeEnd);
 
-//  Page<JobEntity> findByExecutionTimeBetween(LocalDateTime executionTimeStart,
-//      LocalDateTime executionTimeEnd, Pageable pageable);
+  Page<JobEntity> pageByExecutionTimeBetween(LocalDateTime executionTimeStart,
+      LocalDateTime executionTimeEnd, Pageable pageable);
 }

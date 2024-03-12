@@ -1,12 +1,13 @@
 package org.clockwork.pulse.dao.impl;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.stream.Stream;
 import org.clockwork.pulse.dao.JobsDaoLayer;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.repository.JobsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,7 +33,16 @@ public class JobsDaoLayerImpl implements JobsDaoLayer {
   }
 
   @Override
-  public Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime, LocalDateTime endTime) {
+  public Stream<JobEntity> streamBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
+      LocalDateTime endTime) {
     return repository.streamByExecutionTimeBetween(startTime, endTime);
   }
+
+  @Override
+  public Page<JobEntity> pageBatchOfJobsBetweenTimestamps(LocalDateTime startTime,
+      LocalDateTime endTime, Pageable pageable) {
+    return repository.pageByExecutionTimeBetween(startTime, endTime, pageable);
+  }
+
+
 }

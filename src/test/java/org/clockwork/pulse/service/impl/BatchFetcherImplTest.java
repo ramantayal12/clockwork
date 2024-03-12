@@ -36,7 +36,7 @@ class BatchFetcherImplTest {
         .build();
     Mockito.when(jobsDaoLayer.streamBatchOfJobsBetweenTimestamps(startOfWindow, endOfWindow)).thenReturn(stream);
     Assertions.assertDoesNotThrow(
-        () -> batchFetcher.extractAndPublishJobs(startOfWindow, endOfWindow));
+        () -> batchFetcher.extractAndPublishJobsUsingStream(startOfWindow, endOfWindow));
   }
 
   @Test
@@ -47,7 +47,7 @@ class BatchFetcherImplTest {
 
     Mockito.when(jobsDaoLayer.streamBatchOfJobsBetweenTimestamps(startOfWindow, endOfWindow)).thenReturn(null);
     Assertions.assertDoesNotThrow(
-        () -> batchFetcher.extractAndPublishJobs(startOfWindow, endOfWindow));
+        () -> batchFetcher.extractAndPublishJobsUsingStream(startOfWindow, endOfWindow));
   }
 
   private static JobEntity getJobEntity() {

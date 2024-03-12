@@ -10,6 +10,8 @@ import org.clockwork.pulse.kafka.KafkaJobsProducerService;
 import org.clockwork.pulse.service.BatchFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -46,11 +48,11 @@ public class BatchFetcherImpl implements BatchFetcher {
     LocalDateTime startOfWindow = LocalDateTime.now();
     LocalDateTime endOfWindow = LocalDateTime.now().plusMinutes(repetitionTimeInMinutes);
 
-    extractAndPublishJobs(startOfWindow, endOfWindow);
+    extractAndPublishJobsUsingPage(startOfWindow, endOfWindow);
 
   }
 
-  public void extractAndPublishJobs(LocalDateTime startOfWindow, LocalDateTime endOfWindow) {
+  public void extractAndPublishJobsUsingStream(LocalDateTime startOfWindow, LocalDateTime endOfWindow) {
     Stream<JobEntity> entityStream = jobsDaoLayer.streamBatchOfJobsBetweenTimestamps(
         startOfWindow,
         endOfWindow);
@@ -60,6 +62,29 @@ public class BatchFetcherImpl implements BatchFetcher {
       entityStream
           .forEach(job -> producerService.sendMessage(KAFKA_PRODUCER_TOPIC, job.getJobId()));
     }
+  }
 
+  public void extractAndPublishJobsUsingPage(LocalDateTime startOfWindow, LocalDateTime endOfWindow) {
+
+    int pageNumber = 0;
+    int pageSize = 100;
+    PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+    Page<JobEntity> entities = jobsDaoLayer.pageBatchOfJobsBetweenTimestamps(
+        startOfWindow,
+        endOfWindow, pageRequest);
+
+    while( entities.hasNext() ){
+
+      for(JobEntity entity : entities) {
+        producerService.sendMessage(KAFKA_PRODUCER_TOPIC, entity.getJobId());
+      }
+
+      pageNumber += 1;
+      pageRequest = PageRequest.of(pageNumber, pageSize);
+      entities = jobsDaoLayer.pageBatchOfJobsBetweenTimestamps(
+          startOfWindow,
+          endOfWindow, pageRequest);
+
+    }
   }
 }
