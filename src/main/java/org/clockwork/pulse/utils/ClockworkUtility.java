@@ -3,6 +3,7 @@ package org.clockwork.pulse.utils;
 import java.time.LocalDateTime;
 import org.clockwork.pulse.dto.request.GetCallbackRequestDto;
 import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
+import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
 import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.models.RequestType;
 
@@ -35,6 +36,15 @@ public class ClockworkUtility {
         .url(requestDto.getUrl())
         .requestType(RequestType.GET)
         .executionTime(executionTime)
+        .build();
+  }
+
+  public static FetchJobDetailsResponseDto getFetchJobDetailsResponseDto(JobEntity jobEntity) {
+    return FetchJobDetailsResponseDto.builder()
+        .url(jobEntity.getUrl())
+        .requestType(jobEntity.getRequestType())
+        .data(jobEntity.getData())
+        .executionTime(jobEntity.getExecutionTime())
         .build();
   }
 

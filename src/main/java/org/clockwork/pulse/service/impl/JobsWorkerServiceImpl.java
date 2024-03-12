@@ -1,19 +1,20 @@
 package org.clockwork.pulse.service.impl;
 
+import static org.clockwork.pulse.utils.ClockworkUtility.getFetchJobDetailsResponseDto;
 import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromGetDto;
 import static org.clockwork.pulse.utils.ClockworkUtility.getJobEntityFromPostDto;
 
 import lombok.SneakyThrows;
 import org.clockwork.pulse.dao.JobsDaoLayer;
+import org.clockwork.pulse.dto.request.FetchJobDetailsDto;
 import org.clockwork.pulse.dto.request.GetCallbackRequestDto;
 import org.clockwork.pulse.dto.request.PostCallbackRequestDto;
 import org.clockwork.pulse.dto.response.FetchJobDetailsResponseDto;
 import org.clockwork.pulse.dto.response.OnboardJobDetailsResponseDto;
-import org.clockwork.pulse.entity.JobEntity;
 import org.clockwork.pulse.models.JobStatus;
 import org.clockwork.pulse.service.EventService;
-import org.clockwork.pulse.service.ValidationService;
 import org.clockwork.pulse.service.JobsWorkerService;
+import org.clockwork.pulse.service.ValidationService;
 import org.clockwork.pulse.service.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,16 +74,15 @@ public class JobsWorkerServiceImpl implements JobsWorkerService {
         .build();
   }
 
-  public FetchJobDetailsResponseDto fetchJobDetails(String jobId){
+  public FetchJobDetailsResponseDto fetchJobDetails(FetchJobDetailsDto requestDto){
 
-    JobEntity jobEntity = jobsDaoLayer.getJobEntity(jobId);
+    // validate request
+    validationService.validateFetchRequest(requestDto);
 
-    return FetchJobDetailsResponseDto.builder()
-        .url(jobEntity.getUrl())
-        .requestType(jobEntity.getRequestType())
-        .data(jobEntity.getData())
-        .executionTime(jobEntity.getExecutionTime())
-        .build();
+    // fetch entity from db
+    var jobEntity = jobsDaoLayer.getJobEntity(requestDto.getJobId());
+
+    return getFetchJobDetailsResponseDto(jobEntity);
 
   }
 
