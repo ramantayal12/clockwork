@@ -56,7 +56,7 @@ public class JobController {
       @RequestBody FetchJobDetailsDto jobDetailsDto) {
 
     try {
-      var response = jobsWorkerService.fetchJobDetails(jobDetailsDto.getJobId());
+      var response = jobsWorkerService.fetchJobDetails(jobDetailsDto);
       return ResponseEntity.ok(response);
     }catch (BaseClockWorkException exception){
       return getThrowable(exception);
