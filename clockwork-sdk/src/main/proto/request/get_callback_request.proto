@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+//for generating java file
+option java_multiple_files = true;
+option java_package = "org.clockwork.pulse.sdk.grpc.request";
+
+message GetCallbackGrpcRequest {
+  string url = 1;
+  int64 callback_time_after_minutes = 2;
+}

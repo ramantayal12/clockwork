@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "request/fetch_job_details_request.proto";
+import "request/get_callback_request.proto";
+import "request/post_callback_request.proto";
+import "response/fetch_job_details_response.proto";
+import "response/onboard_job_details_response.proto";
+
+//for generating java file
+option java_multiple_files = true;
+option java_package = "org.clockwork.pulse.sdk.grpc.service";
+
+service ClockWorkService{
+
+  rpc get_job_details(FetchJobDetailsGrpcRequest) returns (FetchJobDetailsGrpcResponse);
+  rpc onboard_get_job_request(GetCallbackGrpcRequest) returns (OnboardJobDetailsGrpcResponse);
+  rpc onboard_post_job_request(PostCallbackGrpcRequest) returns (OnboardJobDetailsGrpcResponse);
+
+}

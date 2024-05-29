@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+//for generating java file
+option java_multiple_files = true;
+option java_package = "org.clockwork.pulse.sdk.grpc.response";
+
+message OnboardJobDetailsGrpcResponse{
+
+  string job_id = 1;
+
+}
